@@ -1,4 +1,4 @@
-lines = open('./sample.txt', 'r').readlines()
+lines = open('./puz.txt', 'r').readlines()
 lines = [line.strip() for line in lines]
 
 def part1():
@@ -20,7 +20,6 @@ def part1():
 
 
 def part2():
-    count = len(lines)
     wins = [0 for _ in range(len(lines))]
     mult = [1 for _ in range(len(lines))]
 
@@ -35,17 +34,15 @@ def part2():
         for winner in winners:
             c += have.count(winner)
 
-        wins[i] += c
+        wins[i] = c
 
     for i in range(len(wins)):
         win = wins[i]
-        
-        for x in range(win):
-            mult[i + x] += 1
 
-    for i in range(len(wins)):
-        count += wins[i] * mult[i]
+        for _ in range(mult[i]):
+            for x in range(1, win + 1):
+                mult[i + x] += 1
 
-    return count
+    return sum(mult) 
 
 print(part2())
